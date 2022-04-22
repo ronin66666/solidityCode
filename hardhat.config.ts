@@ -38,7 +38,7 @@ const config: HardhatUserConfig = {
       }
     }
   },
-  defaultNetwork: "localhost",
+  defaultNetwork: "bsctest",
   networks: {
     hardhat:{//启动hardhat节点默认生成20个账户
       allowUnlimitedContractSize: true,

@@ -1,23 +1,59 @@
-import { deployments, ethers, getNamedAccounts, network } from "hardhat";
+import { use } from "chai";
+import { deployments, ethers, getNamedAccounts, network, upgrades } from "hardhat";
 
 
 export default async function heroBoxV1() {
     
-    const { deployer } = await getNamedAccounts();
+    const { deployer, user1 } = await getNamedAccounts();
     const { deploy, catchUnknownSigner } = deployments;
-    const result = await catchUnknownSigner(
-        deploy("HeroBoxV1",{
-            from: deployer,
-            proxy: {
-                owner: deployer,
-                proxyContract: "OpenZeppelinTransparentProxy"
-            },
-        })
-    )
-    // const heroBox = await ethers.getContract<>
 
-    console.log("heroBoxV1 =  ", result);
-    
+    const token =  (await deployments.get("MGFToken")).address;
+
+    const result1 = await deploy("HeroBoxV1", {
+        from: deployer,
+        log: true,
+
+        proxy: {//如果已部署过TransparentProxy， 下次就会走升级
+            owner: deployer,
+            proxyContract: "OpenZeppelinTransparentProxy",
+            execute: {
+                init: {
+                    methodName: "initialize",
+                    args: [token, ethers.utils.parseEther("1"), user1]
+                }
+            }
+        }
+    })
+    console.log("heroBoxV1 =  ", result1.address);
 }
 
 heroBoxV1.tags = ["heroBoxV1"];
+
+/**
+ * 
+ * 
+ export type ProxyOptions =
+  | (ProxyOptionsBase & {
+      methodName?: string; // method to be executed when the proxy is deployed for the first time or when the implementation is modified. Use the deployOptions args field for arguments
+    })
+  | (ProxyOptionsBase & {
+      execute?:
+        | {
+            //首次部署代理或修改实现时要执行的方法。
+            methodName: string; // method to be executed when the proxy is deployed for the first time or when the implementation is modified.
+            args: any[];
+          }
+        | {
+            init: {
+             //部署代理时要执行的方法
+              methodName: string; // method to be executed when the proxy is deployed
+              args: any[];
+            };
+            //升级代理时要执行的方法（不是第一次部署）
+            onUpgrade?: {
+              methodName: string; // method to be executed when the proxy is upgraded (not first deployment)
+              args: any[];
+            };
+          };
+    });
+ */

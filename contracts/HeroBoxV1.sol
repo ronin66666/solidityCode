@@ -26,8 +26,10 @@ contract HeroBoxV1 is
 
     CountersUpgradeable.Counter private _tokenIdTracker;
     IERC20Upgradeable public currToken;
+
     uint256 public nftPrice;
     address public tokenReceiveAddress;
+
     event MintMulti(address indexed _to, uint256 _amount);
     event Mint(address _to, uint tokenid_);
 
@@ -73,6 +75,7 @@ contract HeroBoxV1 is
             _tokenIdTracker.increment();
         }
         uint cost = nftPrice * amount;
+        console.log("cost = ", cost);
         IERC20Upgradeable(currToken).safeTransferFrom(_msgSender(), tokenReceiveAddress, cost);
         emit MintMulti(_msgSender(), amount);
     }
