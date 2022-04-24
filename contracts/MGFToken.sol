@@ -19,6 +19,7 @@ contract MGFToken is AccessControlEnumerable, ERC20Burnable, ERC20Pausable, ERC2
         _setupRole(MINTER_ROLE, _msgSender());
         _setupRole(BURNER_ROLE, _msgSender());
         _setupRole(PAUSER_ROLE, _msgSender());
+        _mint(_msgSender(), 1000000 * 10 ** decimals());
     }
     
     function transferAdmin(address account) external onlyRole(DEFAULT_ADMIN_ROLE) {

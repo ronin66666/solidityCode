@@ -3,7 +3,7 @@
 //
 // When running the script with `npx hardhat run <script>` you'll find the Hardhat
 // Runtime Environment's members available in the global scope.
-import { ethers, getNamedAccounts } from "hardhat";
+import { deployments, ethers, getNamedAccounts } from "hardhat";
 import { HeroBoxV1, MGFToken } from "../typechain";
 
 async function init() {
@@ -53,7 +53,12 @@ async function transfer(to: string) {
 
 async function main() {
   // await init()
-  await approve("0x2C33568A931F41Bb0e749552D3476fBfB5DAfbaC");
+  //0x4560e7781C7f5C5F207447bA0e5bE6241Ccc4c60
+  //0x4560e7781C7f5C5F207447bA0e5bE6241Ccc4c60
+  const heroBoxProxy = (await deployments.get("HeroBox")).address;
+  // const heroBoxUUPSProxy = (await deployments.get("HeroBox")).address;
+
+  await approve(heroBoxProxy);
   // await allowance();
   // await transfer("");
 }

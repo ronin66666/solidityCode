@@ -2,32 +2,45 @@ import { use } from "chai";
 import { deployments, ethers, getNamedAccounts, network, upgrades } from "hardhat";
 
 
-export default async function heroBoxV1() {
+export default async function heroBox() {
     
     const { deployer, user1 } = await getNamedAccounts();
     const { deploy, catchUnknownSigner } = deployments;
 
     const token =  (await deployments.get("MGFToken")).address;
 
-    const result1 = await deploy("HeroBoxV1", {
-        from: deployer,
-        log: true,
+    // const result1 = await deploy("HeroBox", {
+    //   contract: "HeroBoxV1",
+    //     from: deployer,
+    //     log: true,
+    //     proxy: {//如果已部署过TransparentProxy， 下次就会走升级
+    //         owner: deployer,
+    //         proxyContract: "OpenZeppelinTransparentProxy",
+    //         execute: {
+    //             init: {
+    //                 methodName: "initialize",
+    //                 args: [token, ethers.utils.parseEther("1"), user1]
+    //             }
+    //         }
+    //     }
+    // })
+    // console.log("heroBoxV1 =  ", result1.address);
 
+    // //升级合约
+    const result2 = await deploy("HeroBox", {
+      contract: "HeroBoxV2",
+      from: deployer,
+        log: true,
         proxy: {//如果已部署过TransparentProxy， 下次就会走升级
             owner: deployer,
             proxyContract: "OpenZeppelinTransparentProxy",
-            execute: {
-                init: {
-                    methodName: "initialize",
-                    args: [token, ethers.utils.parseEther("1"), user1]
-                }
-            }
         }
     })
-    console.log("heroBoxV1 =  ", result1.address);
+    console.log("result2 = ", result2.address);
+    
 }
 
-heroBoxV1.tags = ["heroBoxV1"];
+heroBox.tags = ["heroBox"];
 
 /**
  * 
