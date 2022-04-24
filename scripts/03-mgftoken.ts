@@ -17,15 +17,13 @@ async function init() {
   console.log(result)
 }
 
-async function approve() {
+async function approve(approveAddress: string) {
   const {deployer, user1} = await getNamedAccounts();
   console.log(deployer);
 
-  const heroBoxv1 = await ethers.getContract<HeroBoxV1>("HeroBoxV1", deployer);
-
   // We get the contract to deploy
   const token = await ethers.getContract<MGFToken>("MGFToken", deployer);
-  const result = await token.approve(heroBoxv1.address, ethers.utils.parseEther("10000")).then(tx => tx.wait());
+  const result = await token.approve(approveAddress, ethers.utils.parseEther("10000")).then(tx => tx.wait());
 
   console.log(result);
 }
@@ -54,8 +52,8 @@ async function transfer(to: string) {
 }
 
 async function main() {
-  await init()
-  await approve();
+  // await init()
+  await approve("0x2C33568A931F41Bb0e749552D3476fBfB5DAfbaC");
   // await allowance();
   // await transfer("");
 }
