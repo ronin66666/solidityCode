@@ -1,10 +1,24 @@
+import { ethers, getNamedAccounts } from "hardhat"
+import { HeroBoxUUPSV1 } from "../typechain";
 
+async function mintMulti(num: number) {
+    
+  const contract = await ethers.getContract<HeroBoxUUPSV1>("HeroBoxUUPS");
+  const reuslt = await contract.mintMulti(num).then(tx => tx.wait());
+  console.log("result = ", reuslt);
+  
+}
 
-
+async function balanceOf(who: string) {
+  const contract = await ethers.getContract<HeroBoxUUPSV1>("HeroBoxUUPS");
+  const balance = await contract.balanceOf(who);
+  console.log("balance = ", balance.toNumber());
+}
 
 async function main() {
-
-
+  const { deployer } = await getNamedAccounts();
+  await mintMulti(2);
+  await balanceOf(deployer);
 }
   
   // We recommend this pattern to be able to use async/await everywhere

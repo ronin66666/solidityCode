@@ -1,4 +1,4 @@
-import { deployments, ethers, getNamedAccounts, network, upgrades } from "hardhat";
+import { deployments, ethers, getNamedAccounts } from "hardhat";
 
 
 export default async function heroBoxUUPS() {
@@ -8,34 +8,36 @@ export default async function heroBoxUUPS() {
 
     const token =  (await deployments.get("MGFToken")).address;
 
-    const result1 = await deploy("HeroBoxUUPS", {
-      contract: "HeroBoxUUPSV1",
-        from: deployer,
-        log: true,
-        proxy: {//如果已部署过TransparentProxy， 下次就会走升级
-            owner: deployer,
-            proxyContract: "OpenZeppelinTransparentProxy",
-            execute: {
-                init: {
-                    methodName: "initialize",
-                    args: [token, ethers.utils.parseEther("1"), user1]
-                }
-            }
-        }
-    })
-    console.log("heroBoxV1 =  ", result1.address);
-
-    // //升级合约
-    // const result2 = await deploy("HeroBox", {
-    //   contract: "HeroBoxUUPSV12",
-    //   from: deployer,
+    // const result1 = await deploy("HeroBoxUUPS", {
+    //   contract: "HeroBoxUUPSV1",
+    //     from: deployer,
     //     log: true,
     //     proxy: {//如果已部署过TransparentProxy， 下次就会走升级
-    //         owner: deployer,
-    //         proxyContract: "OpenZeppelinTransparentProxy",
+    //         proxyContract: "ERC1967Proxy",
+    //         proxyArgs: ['{implementation}', '{data}'],
+    //         execute: {
+    //             init: {
+    //                 methodName: "initialize",
+    //                 args: [token, ethers.utils.parseEther("1"), user1]
+    //             }
+    //         }
     //     }
     // })
-    // console.log("result2 = ", result2.address);
+    // console.log("heroBoxV1 =  ", result1.address);
+
+    // //升级合约
+    const result2 = await deploy("HeroBoxUUPS", {
+      contract: "HeroBoxUUPSV2",
+      from: user1,
+        log: true,
+        proxy: {//如果已部署过TransparentProxy， 下次就会走升级
+            proxyContract: "ERC1967Proxy",
+            proxyArgs: ['{implementation}', '{data}'],
+        }
+    })
+    console.log("result2 = ", result2.address);
+
+
     
 }
 

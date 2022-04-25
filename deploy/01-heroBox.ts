@@ -8,7 +8,7 @@ export default async function heroBox() {
     const { deploy, catchUnknownSigner } = deployments;
 
     const token =  (await deployments.get("MGFToken")).address;
-
+    //首次部署， 如果合约名相同只改了代码，直接执行该方法就可升级
     // const result1 = await deploy("HeroBox", {
     //   contract: "HeroBoxV1",
     //     from: deployer,

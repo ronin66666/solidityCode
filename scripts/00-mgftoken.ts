@@ -53,12 +53,12 @@ async function transfer(to: string) {
 
 async function main() {
   // await init()
-  //0x4560e7781C7f5C5F207447bA0e5bE6241Ccc4c60
-  //0x4560e7781C7f5C5F207447bA0e5bE6241Ccc4c60
-  const heroBoxProxy = (await deployments.get("HeroBox")).address;
+
+  // const heroBoxProxy = (await deployments.get("HeroBox")).address;
+  const heroUUPSProxy = (await deployments.get("HeroBoxUUPS")).address
   // const heroBoxUUPSProxy = (await deployments.get("HeroBox")).address;
 
-  await approve(heroBoxProxy);
+  await approve(heroUUPSProxy);
   // await allowance();
   // await transfer("");
 }

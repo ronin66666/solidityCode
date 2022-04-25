@@ -39,7 +39,10 @@ npm install --save-dev @openzeppelin/hardhat-upgrades
 
 https://github.com/wighawag/hardhat-deploy#deploying-and-upgrading-proxies
 
-`hardhat-deploy`暂时不支持`UUPSUpgradeable`类型的部署
+`hardhat-deploy`对`UUPSUpgradeable`的支持好像并不好，
+按照这个来部署，好像也有问题：https://github.com/wighawag/hardhat-deploy/issues/282
+
+还是根据`openzeppelin`的`openzeppelin-upgrades`插件来搞比较好
 
 ## BeaconProxy
 

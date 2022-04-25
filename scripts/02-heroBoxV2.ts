@@ -17,11 +17,22 @@ async function balanceOf(who: string) {
     
 }
 
+async function open(tokenId: number) {
+    
+  const contract = await ethers.getContract<HeroBoxV2>("HeroBox");
+  const reuslt = await contract.open(tokenId).then(tx => tx.wait());
+  console.log("result = ", reuslt);
+  
+}
+
 async function main() {
     const { deployer } = await getNamedAccounts();
-    await mintMulti(2);
+    // await mintMulti(2);
 
     await balanceOf(deployer);
+
+    await open(1);
+
 }
   
   // We recommend this pattern to be able to use async/await everywhere
