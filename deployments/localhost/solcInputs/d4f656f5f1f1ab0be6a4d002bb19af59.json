@@ -1,0 +1,35 @@
+{
+  "language": "Solidity",
+  "sources": {
+    "contracts/delegateCall/A.sol": {
+      "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\n\ncontract A {\n    uint public num;\n    address public sender;\n    uint public value;\n\n    event SetValue(bool success, uint256 num);\n\n    function setVars(address _contract, uint _num) public payable {\n        // A's storage is set, B is not modified.\n        (bool success, bytes memory data) = _contract.delegatecall(\n            abi.encodeWithSignature(\"setVars(uint256)\", _num)\n        );\n        // require(success, \"delegatecall error\");\n        // uint256 v = abi.decode(data,(uint256));\n        // emit SetValue(success, v);\n    }\n}"
+    }
+  },
+  "settings": {
+    "optimizer": {
+      "enabled": true,
+      "runs": 200
+    },
+    "outputSelection": {
+      "*": {
+        "*": [
+          "abi",
+          "evm.bytecode",
+          "evm.deployedBytecode",
+          "evm.methodIdentifiers",
+          "metadata",
+          "devdoc",
+          "userdoc",
+          "storageLayout",
+          "evm.gasEstimates"
+        ],
+        "": [
+          "ast"
+        ]
+      }
+    },
+    "metadata": {
+      "useLiteralContent": true
+    }
+  }
+}

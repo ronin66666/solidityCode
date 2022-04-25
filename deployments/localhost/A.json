@@ -1,0 +1,153 @@
+{
+  "address": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "bool",
+          "name": "success",
+          "type": "bool"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes",
+          "name": "num",
+          "type": "bytes"
+        }
+      ],
+      "name": "SetValue",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "num",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "sender",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_contract",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_num",
+          "type": "uint256"
+        }
+      ],
+      "name": "setVars",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "value",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0x44c0c44ab63ad8830ffa4af50d42a87c896c3d00e78374b281d105747f69e666",
+  "receipt": {
+    "to": null,
+    "from": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+    "contractAddress": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+    "transactionIndex": 0,
+    "gasUsed": "197713",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x7c433a3e3812e7fefb234dc01c3465a97447b355ee8a84a2aaa70f01e8b0fa9e",
+    "transactionHash": "0x44c0c44ab63ad8830ffa4af50d42a87c896c3d00e78374b281d105747f69e666",
+    "logs": [],
+    "blockNumber": 8,
+    "cumulativeGasUsed": "197713",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [],
+  "numDeployments": 2,
+  "solcInputHash": "d4055adfee30842fa60b7a28843bfdbe",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.4+commit.c7e474f2\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"success\",\"type\":\"bool\"},{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"num\",\"type\":\"bytes\"}],\"name\":\"SetValue\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"num\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"sender\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_contract\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_num\",\"type\":\"uint256\"}],\"name\":\"setVars\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"value\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/delegateCall/A.sol\":\"A\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"contracts/delegateCall/A.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.0;\\n\\n\\ncontract A {\\n    uint public num;\\n    address public sender;\\n    uint public value;\\n\\n    event SetValue(bool success, bytes num);\\n\\n    function setVars(address _contract, uint _num) public payable {\\n        // A's storage is set, B is not modified.\\n        (bool success, bytes memory data) = _contract.delegatecall(\\n            abi.encodeWithSignature(\\\"setVars(uint256)\\\", _num)\\n        );\\n        // require(success, \\\"delegatecall error\\\");\\n        // uint256 v = abi.decode(data,(uint256));\\n        emit SetValue(success, data);\\n    }\\n}\",\"keccak256\":\"0x8018642c5f04034faf032c7818d84bbefea271fc877dc226f80f90debf8ac50c\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b5061029d806100206000396000f3fe60806040526004361061003f5760003560e01c80633fa4f245146100445780634e70b1dc1461006d57806367e404ce14610083578063d1e0f308146100bb575b600080fd5b34801561005057600080fd5b5061005a60025481565b6040519081526020015b60405180910390f35b34801561007957600080fd5b5061005a60005481565b34801561008f57600080fd5b506001546100a3906001600160a01b031681565b6040516001600160a01b039091168152602001610064565b6100ce6100c93660046101a9565b6100d0565b005b600080836001600160a01b0316836040516024016100f091815260200190565b60408051601f198184030181529181526020820180516001600160e01b0316636466414b60e01b1790525161012591906101df565b600060405180830381855af49150503d8060008114610160576040519150601f19603f3d011682016040523d82523d6000602084013e610165565b606091505b50915091507f03bcec00a1c39d070f49d8b901272aa7fddc780e588670d714cc313a755d5ab8828260405161019b9291906101fb565b60405180910390a150505050565b600080604083850312156101bb578182fd5b82356001600160a01b03811681146101d1578283fd5b946020939093013593505050565b600082516101f1818460208701610237565b9190910192915050565b82151581526040602082015260008251806040840152610222816060850160208701610237565b601f01601f1916919091016060019392505050565b60005b8381101561025257818101518382015260200161023a565b83811115610261576000848401525b5050505056fea264697066735822122051afc4f6d0a8be2369077536295d177d3c819c7a0d25bf0c5eb3dc411e0e6a6b64736f6c63430008040033",
+  "deployedBytecode": "0x60806040526004361061003f5760003560e01c80633fa4f245146100445780634e70b1dc1461006d57806367e404ce14610083578063d1e0f308146100bb575b600080fd5b34801561005057600080fd5b5061005a60025481565b6040519081526020015b60405180910390f35b34801561007957600080fd5b5061005a60005481565b34801561008f57600080fd5b506001546100a3906001600160a01b031681565b6040516001600160a01b039091168152602001610064565b6100ce6100c93660046101a9565b6100d0565b005b600080836001600160a01b0316836040516024016100f091815260200190565b60408051601f198184030181529181526020820180516001600160e01b0316636466414b60e01b1790525161012591906101df565b600060405180830381855af49150503d8060008114610160576040519150601f19603f3d011682016040523d82523d6000602084013e610165565b606091505b50915091507f03bcec00a1c39d070f49d8b901272aa7fddc780e588670d714cc313a755d5ab8828260405161019b9291906101fb565b60405180910390a150505050565b600080604083850312156101bb578182fd5b82356001600160a01b03811681146101d1578283fd5b946020939093013593505050565b600082516101f1818460208701610237565b9190910192915050565b82151581526040602082015260008251806040840152610222816060850160208701610237565b601f01601f1916919091016060019392505050565b60005b8381101561025257818101518382015260200161023a565b83811115610261576000848401525b5050505056fea264697066735822122051afc4f6d0a8be2369077536295d177d3c819c7a0d25bf0c5eb3dc411e0e6a6b64736f6c63430008040033",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 3,
+        "contract": "contracts/delegateCall/A.sol:A",
+        "label": "num",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 5,
+        "contract": "contracts/delegateCall/A.sol:A",
+        "label": "sender",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_address"
+      },
+      {
+        "astId": 7,
+        "contract": "contracts/delegateCall/A.sol:A",
+        "label": "value",
+        "offset": 0,
+        "slot": "2",
+        "type": "t_uint256"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}

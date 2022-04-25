@@ -1,0 +1,35 @@
+{
+  "language": "Solidity",
+  "sources": {
+    "contracts/call/Caller.sol": {
+      "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\ncontract Caller {\n\n    event Response(bool success, uint256 value);\n\n    //传入目标合约地址即可调用\n    function testCallFoo(address payable _addr) public payable {\n\n        // 可以附加自定义gas和value\n        (bool success, bytes memory data) = _addr.call(\n            abi.encodeWithSignature(\"foo(string,uint256)\", \"call foo\", 300)\n        );\n        require(success, \"call error\");\n        uint256 value = abi.decode(data, (uint256));\n        emit Response(success, value);\n    }\n\n    function testCallFooWithValueAndGas(address payable _addr) public payable {\n\n        // 可以附加自定义gas和value\n        (bool success, bytes memory data) = _addr.call{value: msg.value, gas: 5000}(\n            abi.encodeWithSignature(\"foo(string,uint256)\", \"call foo\", 123)\n        );\n        require(success, \"call error\");\n        uint256 value = abi.decode(data, (uint256));\n        emit Response(success, value);\n    }\n\n    // calling 一个不存在的方法目标函数会发生回退\n    function testCallDoesNotExist(address _addr) public {\n        (bool success, bytes memory data) = _addr.call(\n            abi.encodeWithSignature(\"doesNotExist()\")\n        );\n        require(success, \"call error\");\n        uint256 value = abi.decode(data, (uint256));\n        emit Response(success, value);\n    }\n}"
+    }
+  },
+  "settings": {
+    "optimizer": {
+      "enabled": true,
+      "runs": 200
+    },
+    "outputSelection": {
+      "*": {
+        "*": [
+          "abi",
+          "evm.bytecode",
+          "evm.deployedBytecode",
+          "evm.methodIdentifiers",
+          "metadata",
+          "devdoc",
+          "userdoc",
+          "storageLayout",
+          "evm.gasEstimates"
+        ],
+        "": [
+          "ast"
+        ]
+      }
+    },
+    "metadata": {
+      "useLiteralContent": true
+    }
+  }
+}

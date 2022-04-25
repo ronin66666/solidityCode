@@ -1,0 +1,129 @@
+{
+  "address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+  "abi": [
+    {
+      "inputs": [],
+      "name": "num",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "sender",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_num",
+          "type": "uint256"
+        }
+      ],
+      "name": "setVars",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "value",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0x4b530b5e1e6766e23efd4d0d700a01c1fb876dc63f6f0f95729898d20c22147c",
+  "receipt": {
+    "to": null,
+    "from": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+    "contractAddress": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+    "transactionIndex": 0,
+    "gasUsed": "116491",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0xf67e1ef9e5b4fc5d548301470eab642b60407d6d993ba89f3ad2e84e5d08fa77",
+    "transactionHash": "0x4b530b5e1e6766e23efd4d0d700a01c1fb876dc63f6f0f95729898d20c22147c",
+    "logs": [],
+    "blockNumber": 4,
+    "cumulativeGasUsed": "116491",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [],
+  "numDeployments": 1,
+  "solcInputHash": "23aedca5a85853e117fcf32921e6fb7d",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.4+commit.c7e474f2\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"num\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"sender\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_num\",\"type\":\"uint256\"}],\"name\":\"setVars\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"value\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/delegateCall/B.sol\":\"B\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"contracts/delegateCall/B.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.0;\\n\\n// NOTE: Deploy this contract first\\ncontract B {\\n    // NOTE: storage layout must be the same as contract A\\n    uint public num;\\n    address public sender;\\n    uint public value;\\n\\n    function setVars(uint _num) public payable {\\n        num = _num;\\n        sender = msg.sender;\\n        value = msg.value;\\n    }\\n}\",\"keccak256\":\"0x666466bdcee37d4670279d97a51b420f2ecc66a1a4070eba9d382dd362016501\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b50610124806100206000396000f3fe608060405260043610603a5760003560e01c80633fa4f24514603f5780634e70b1dc1460665780636466414b14607a57806367e404ce1460a2575b600080fd5b348015604a57600080fd5b50605360025481565b6040519081526020015b60405180910390f35b348015607157600080fd5b50605360005481565b60a0608536600460d7565b600055600180546001600160a01b0319163317905534600255565b005b34801560ad57600080fd5b5060015460c0906001600160a01b031681565b6040516001600160a01b039091168152602001605d565b60006020828403121560e7578081fd5b503591905056fea264697066735822122006f9d200561220cef9864928e96829b9bb96ec448b0aad3398ebba068fed9b8664736f6c63430008040033",
+  "deployedBytecode": "0x608060405260043610603a5760003560e01c80633fa4f24514603f5780634e70b1dc1460665780636466414b14607a57806367e404ce1460a2575b600080fd5b348015604a57600080fd5b50605360025481565b6040519081526020015b60405180910390f35b348015607157600080fd5b50605360005481565b60a0608536600460d7565b600055600180546001600160a01b0319163317905534600255565b005b34801560ad57600080fd5b5060015460c0906001600160a01b031681565b6040516001600160a01b039091168152602001605d565b60006020828403121560e7578081fd5b503591905056fea264697066735822122006f9d200561220cef9864928e96829b9bb96ec448b0aad3398ebba068fed9b8664736f6c63430008040033",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 3,
+        "contract": "contracts/delegateCall/B.sol:B",
+        "label": "num",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 5,
+        "contract": "contracts/delegateCall/B.sol:B",
+        "label": "sender",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_address"
+      },
+      {
+        "astId": 7,
+        "contract": "contracts/delegateCall/B.sol:B",
+        "label": "value",
+        "offset": 0,
+        "slot": "2",
+        "type": "t_uint256"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}

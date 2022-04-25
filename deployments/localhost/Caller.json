@@ -1,0 +1,99 @@
+{
+  "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "bool",
+          "name": "success",
+          "type": "bool"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "value",
+          "type": "uint256"
+        }
+      ],
+      "name": "Response",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_addr",
+          "type": "address"
+        }
+      ],
+      "name": "testCallDoesNotExist",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address payable",
+          "name": "_addr",
+          "type": "address"
+        }
+      ],
+      "name": "testCallFoo",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address payable",
+          "name": "_addr",
+          "type": "address"
+        }
+      ],
+      "name": "testCallFooWithValueAndGas",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0x3a154b5f6efb48c2b32f746752817eb9eeebcd25823887872e3126d49b25d74a",
+  "receipt": {
+    "to": null,
+    "from": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+    "contractAddress": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+    "transactionIndex": 0,
+    "gasUsed": "261458",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0xa3db26d07b6854381d622ae7c96f742f2de3f20e69260fe205358e67a9bebaf5",
+    "transactionHash": "0x3a154b5f6efb48c2b32f746752817eb9eeebcd25823887872e3126d49b25d74a",
+    "logs": [],
+    "blockNumber": 2,
+    "cumulativeGasUsed": "261458",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [],
+  "numDeployments": 1,
+  "solcInputHash": "1b7192a4a94792e296f35f56105deb94",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.4+commit.c7e474f2\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"success\",\"type\":\"bool\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"Response\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_addr\",\"type\":\"address\"}],\"name\":\"testCallDoesNotExist\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address payable\",\"name\":\"_addr\",\"type\":\"address\"}],\"name\":\"testCallFoo\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address payable\",\"name\":\"_addr\",\"type\":\"address\"}],\"name\":\"testCallFooWithValueAndGas\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/call/Caller.sol\":\"Caller\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"contracts/call/Caller.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.0;\\n\\ncontract Caller {\\n\\n    event Response(bool success, uint256 value);\\n\\n    //\\u4f20\\u5165\\u76ee\\u6807\\u5408\\u7ea6\\u5730\\u5740\\u5373\\u53ef\\u8c03\\u7528\\n    function testCallFoo(address payable _addr) public payable {\\n\\n        // \\u53ef\\u4ee5\\u9644\\u52a0\\u81ea\\u5b9a\\u4e49gas\\u548cvalue\\n        (bool success, bytes memory data) = _addr.call(\\n            abi.encodeWithSignature(\\\"foo(string,uint256)\\\", \\\"call foo\\\", 300)\\n        );\\n        require(success, \\\"call error\\\");\\n        uint256 value = abi.decode(data, (uint256));\\n        emit Response(success, value);\\n    }\\n\\n    function testCallFooWithValueAndGas(address payable _addr) public payable {\\n\\n        // \\u53ef\\u4ee5\\u9644\\u52a0\\u81ea\\u5b9a\\u4e49gas\\u548cvalue\\n        (bool success, bytes memory data) = _addr.call{value: msg.value, gas: 5000}(\\n            abi.encodeWithSignature(\\\"foo(string,uint256)\\\", \\\"call foo\\\", 123)\\n        );\\n        require(success, \\\"call error\\\");\\n        uint256 value = abi.decode(data, (uint256));\\n        emit Response(success, value);\\n    }\\n\\n    // calling \\u4e00\\u4e2a\\u4e0d\\u5b58\\u5728\\u7684\\u65b9\\u6cd5\\u76ee\\u6807\\u51fd\\u6570\\u4f1a\\u53d1\\u751f\\u56de\\u9000\\n    function testCallDoesNotExist(address _addr) public {\\n        (bool success, bytes memory data) = _addr.call(\\n            abi.encodeWithSignature(\\\"doesNotExist()\\\")\\n        );\\n        require(success, \\\"call error\\\");\\n        uint256 value = abi.decode(data, (uint256));\\n        emit Response(success, value);\\n    }\\n}\",\"keccak256\":\"0xef2dea0472a1357564cc9631d2a86d098c91a9fa6f6090db886ca41152e04a93\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b506103c4806100206000396000f3fe6080604052600436106100345760003560e01c8063074323281461003957806387ba61791461004e578063ff00726c14610061575b600080fd5b61004c61004736600461028f565b610081565b005b61004c61005c36600461028f565b6101ba565b34801561006d57600080fd5b5061004c61007c36600461028f565b61024c565b600080826001600160a01b03163461138890607b6040516024016100a59190610303565b60408051601f198184030181529181526020820180516001600160e01b03166324ccab8f60e01b179052516100da91906102ca565b600060405180830381858888f193505050503d8060008114610118576040519150601f19603f3d011682016040523d82523d6000602084013e61011d565b606091505b5091509150816101605760405162461bcd60e51b815260206004820152600a60248201526931b0b6361032b93937b960b11b604482015260640160405180910390fd5b60008180602001905181019061017691906102b2565b604080518515158152602081018390529192507f21070269129160b78954018449b4a2c215c575e4a94262560eaf9541e0c018a7910160405180910390a150505050565b600080826001600160a01b031661012c6040516024016101da919061033c565b60408051601f198184030181529181526020820180516001600160e01b03166324ccab8f60e01b1790525161020f91906102ca565b6000604051808303816000865af19150503d8060008114610118576040519150601f19603f3d011682016040523d82523d6000602084013e61011d565b60408051600481526024810182526020810180516001600160e01b0316630ee642d760e11b179052905160009182916001600160a01b0385169161020f916102ca565b6000602082840312156102a0578081fd5b81356102ab81610376565b9392505050565b6000602082840312156102c3578081fd5b5051919050565b60008251815b818110156102ea57602081860181015185830152016102d0565b818111156102f85782828501525b509190910192915050565b60408152600061032b60408301600881526763616c6c20666f6f60c01b602082015260400190565b905060ff8316602083015292915050565b60408152600061036460408301600881526763616c6c20666f6f60c01b602082015260400190565b905061ffff8316602083015292915050565b6001600160a01b038116811461038b57600080fd5b5056fea2646970667358221220ed283aa0a1d460d71bde171f90b3089c34a10518d971d1ca1d62a22416465b6964736f6c63430008040033",
+  "deployedBytecode": "0x6080604052600436106100345760003560e01c8063074323281461003957806387ba61791461004e578063ff00726c14610061575b600080fd5b61004c61004736600461028f565b610081565b005b61004c61005c36600461028f565b6101ba565b34801561006d57600080fd5b5061004c61007c36600461028f565b61024c565b600080826001600160a01b03163461138890607b6040516024016100a59190610303565b60408051601f198184030181529181526020820180516001600160e01b03166324ccab8f60e01b179052516100da91906102ca565b600060405180830381858888f193505050503d8060008114610118576040519150601f19603f3d011682016040523d82523d6000602084013e61011d565b606091505b5091509150816101605760405162461bcd60e51b815260206004820152600a60248201526931b0b6361032b93937b960b11b604482015260640160405180910390fd5b60008180602001905181019061017691906102b2565b604080518515158152602081018390529192507f21070269129160b78954018449b4a2c215c575e4a94262560eaf9541e0c018a7910160405180910390a150505050565b600080826001600160a01b031661012c6040516024016101da919061033c565b60408051601f198184030181529181526020820180516001600160e01b03166324ccab8f60e01b1790525161020f91906102ca565b6000604051808303816000865af19150503d8060008114610118576040519150601f19603f3d011682016040523d82523d6000602084013e61011d565b60408051600481526024810182526020810180516001600160e01b0316630ee642d760e11b179052905160009182916001600160a01b0385169161020f916102ca565b6000602082840312156102a0578081fd5b81356102ab81610376565b9392505050565b6000602082840312156102c3578081fd5b5051919050565b60008251815b818110156102ea57602081860181015185830152016102d0565b818111156102f85782828501525b509190910192915050565b60408152600061032b60408301600881526763616c6c20666f6f60c01b602082015260400190565b905060ff8316602083015292915050565b60408152600061036460408301600881526763616c6c20666f6f60c01b602082015260400190565b905061ffff8316602083015292915050565b6001600160a01b038116811461038b57600080fd5b5056fea2646970667358221220ed283aa0a1d460d71bde171f90b3089c34a10518d971d1ca1d62a22416465b6964736f6c63430008040033",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [],
+    "types": null
+  }
+}
