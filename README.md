@@ -1,7 +1,3 @@
----
-typora-root-url: ./img
----
-
 ## start
 
 ```bash
@@ -19,7 +15,7 @@ npx hardhat deploy //部署合约
 
  失败不是发⽣异常，⼀定要检查返回值
 
-![call](/call.png)
+![call](./img/call.png)
 
 ## delegateCall
 保持上下⽂,不⽀持附加value {value: } 
@@ -28,7 +24,7 @@ npx hardhat deploy //部署合约
 
 proxy代理合约就是根据这个特点来的
 
-![delegateCall](/delegateCall.png)
+![delegateCall](./img/delegateCall.png)
 
 
 ## staticCall: 只读，不能修改目标函数中的数据
