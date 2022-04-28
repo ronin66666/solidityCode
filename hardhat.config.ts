@@ -36,11 +36,8 @@ const config: HardhatUserConfig = {
       }
     }
   },
-  defaultNetwork: "hardhat",
+  defaultNetwork: "bsctest",
   networks: {
-    hardhat:{//启动hardhat节点默认生成20个账户
-      allowUnlimitedContractSize: true,
-    },
     localhost:{
       url: "http://127.0.0.1:8545/",
       //使用本地测试账户：通过npx hardhat node --network hardhat --no-deploy 命令可查看
