@@ -10,7 +10,8 @@ import "hardhat-deploy"
 import fs from "fs";
 import { ethers, hardhatArguments } from "hardhat";
 
-dotenv.config();
+// dotenv.config({path: "main.env"});
+dotenv.config({path: "test.env"}); //test
 
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
@@ -21,7 +22,8 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
     console.log(account.address);
   }
 });
-const accounts = fs.readFileSync(".secret").toString().trim().split(",");
+
+const accounts =  [process.env.deployer, process.env.test1, process.env.test2, process.env.test3] as string[]
 
 // You need to export an object to set up your config
 // Go to https://hardhat.org/config/ to learn more
@@ -44,7 +46,9 @@ const config: HardhatUserConfig = {
     localhost:{
       url: "http://127.0.0.1:8545/",
       //使用本地测试账户：通过npx hardhat node --network hardhat --no-deploy 命令可查看
-      accounts: ["0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80", "0x59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d"],
+      accounts: ["0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80", 
+                  "0x59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d"
+                ],
     },
     bsctest: {
       allowUnlimitedContractSize:true,
@@ -54,18 +58,20 @@ const config: HardhatUserConfig = {
       //live: false, //指定是否是一个线上的链，localhost and hardhat where the default is false
       //tags: ["bsctest"] //设置网络别名，可通过hre.network.tags获得
     },
-    ropsten: {
-      url: process.env.ROPSTEN_URL || "",
-      accounts:
-        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
-    },
+    rinkeby: {
+      url: `https://rinkeby.infura.io/v3/${process.env.infuraKey}`,
+      chainId: 4,
+      accounts: accounts
+    }
   },
   namedAccounts:{
     deployer:{
       default:0,
+      rinkeby: 0
     },
     user1: {
-      default:1
+      default:1,
+      rinkeby: 1
     }
   },
   gasReporter: {
